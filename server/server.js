@@ -805,7 +805,7 @@ app.delete('/deleteprojectmember/:projectid/:userid', authenticateJWT,isAdmin, a
 });
 
 // route for viewing project (only admin/user)
-app.get('/viewallusers', authenticateJWT, isAdmin, async (req, res) => {
+app.get('/viewallusers', authenticateJWT, async (req, res) => {
 
   try{
     const query = 'Select id, name, email, username, role, created_at from users';
