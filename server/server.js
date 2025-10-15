@@ -233,7 +233,7 @@ app.post('/login', [
   // Store the refresh token in an HttpOnly cookie for security
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
-    secure: process.env.NODE_ENV === 'production', // Use secure in production
+    secure: true, // Use secure in production
     sameSite: 'None', 
     maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
   });
@@ -805,7 +805,7 @@ app.delete('/deleteprojectmember/:projectid/:userid', authenticateJWT,isAdmin, a
 });
 
 // route for viewing project (only admin/user)
-app.get('/viewallusers', authenticateJWT, async (req, res) => {
+app.get('/viewallusers', authenticateJWT,isAdmin, async (req, res) => {
 
   try{
     const query = 'Select id, name, email, username, role, created_at from users';
@@ -910,7 +910,7 @@ app.post('/logout', (req, res) => {
   // Clear the HttpOnly cookie containing the refresh token
   res.clearCookie('refreshToken', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     sameSite: 'None',
   });
 
