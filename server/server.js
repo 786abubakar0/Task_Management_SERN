@@ -808,7 +808,7 @@ app.delete('/deleteprojectmember/:projectid/:userid', authenticateJWT,isAdmin, a
 app.get('/viewallusers', authenticateJWT, isAdmin, async (req, res) => {
 
   try{
-    const query = 'Select * from users';
+    const query = 'Select id, name, email, username, role, created_at from users';
     const [rows] = await pool.execute(query);
     // console.log(result);
     if(rows.length == 0){
